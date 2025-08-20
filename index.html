@@ -52,15 +52,19 @@
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            height: clamp(40px, 8vw, 50px);
-            width: auto;
-            object-fit: contain;
-        }
+    display: flex;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 900; /* Increased to a bolder weight */
+    color: linear-gradient(90deg, var(--primary) 50%, var(--accent) 50%); /* Combination of primary and secondary colors */
+    background: -webkit-linear-gradient(90deg, var(--primary) 50%, var(--accent) 50%); /* For Webkit browsers */
+    -webkit-background-clip: text; /* Ensures gradient applies to text */
+    background-clip: text; /* Ensures gradient applies to text */
+    -webkit-text-fill-color: transparent; /* Makes the text transparent to show gradient */
+    text-transform:capitalize;
+    letter-spacing: 1.5px
+}
 
         .nav-links {
             display: flex;
@@ -114,7 +118,7 @@
             background: url('images/Edualat\ 1.jpg') center/cover no-repeat;
         }
 
-        .hero::before {
+        .hero::before { 
             content: '';
             position: absolute;
             top: 0;
@@ -782,13 +786,14 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <img src="https://images.unsplash.com/photo-1622480555269-8d2a5c292e1b?auto=format&fit=crop&w=200&q=80" alt="EduAlat Logo">
+                    EduAlat
                 </div>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#report">What You Can Report</a></li>
-                    <li><a href="#cta">Get Started</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#report">What You Can Report</a></li>
+    <li><a href="login.html" id="signup">Login</a></li>
+</ul>
                 </ul>
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
                     <i class="fas fa-bars menu-icon"></i>
@@ -1018,17 +1023,11 @@
         </div>
     </section>
 
-    <section id="cta" class="cta">
-        <div class="container cta-content">
-            <h2>Ready to Make a Difference?</h2>
-            <p>Change starts with your voice. Use EduAlat today and be part of building safer, more accountable schools — without putting yourself at risk.</p>
-            <div class="cta-buttons">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQy1kfdW0aMw8bCAp7e-HsYQtPcYS7FEyjVS5LXq8hwxz4qQ/viewform?usp=sharing&ouid=106519815467725759590" target="_blank" class="btn"><i class="fas fa-bullhorn"></i> Report An Issue</a>
-                <a href="#" class="btn btn-outline"><i class="fas fa-question-circle"></i> Learn More</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4VeHkrWEsha6QWNhmZ-YFlae1LFG90k490qeLXgpCM9yV7A/viewform?usp=sharing&ouid=106519815467725759590" target="_blank" class="btn btn-outline"><i class="fas fa-handshake"></i> Partner With Us</a>
-            </div>
-        </div>
-    </section>
+    <div class="cta-buttons">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQy1kfdW0aMw8bCAp7e-HsYQtPcYS7FEyjVS5LXq8hwxz4qQ/viewform?usp=sharing&ouid=106519815467725759590" target="_blank" class="btn"><i class="fas fa-bullhorn"></i> Report An Issue</a>
+    <a href="login.html" class="btn btn-outline"><i class="fas fa-user"></i> Login</a>
+    <a href="signup.html" class="btn btn-secondary"><i class="fas fa-user-plus"></i> Sign Up</a>
+</div>
 
     <footer>
         <div class="container">
@@ -1133,5 +1132,18 @@
             observer.observe(card);
         });
     </script>
+
+<script>
+    // Authentication status check
+    document.addEventListener('DOMContentLoaded', function() {
+        const isLoggedIn = localStorage.getItem('edualatLoggedIn') === 'true';
+        const loginNavLink = document.getElementById('loginNavLink');
+        
+        // Change login link to dashboard if user is logged in
+        if (isLoggedIn) {
+            loginNavLink.innerHTML = '<a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>';
+        }
+    });
+</script>
 </body>
 </html>

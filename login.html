@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAlat - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #007A33;
+            --accent: #FF8C00;
+            --background: #F9FAFB;
+            --text-secondary: #333333;
+            --highlight: #002147;
+            --success: #D4EDDA;
+            --error: #D32F2F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .auth-container {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            margin: clamp(10px, 3vw, 20px) 0;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: clamp(20px, 4vw, 30px);
+        }
+
+        .auth-logo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(20px, 5vw, 26px); /* Adjusted for text, maintaining responsiveness */
+    font-weight: 900; /* Increased to a bolder weight */
+    color: linear-gradient(90deg, var(--primary) 50%, var(--accent) 50%); /* Combination of primary and secondary colors */
+    background: -webkit-linear-gradient(90deg, var(--primary) 50%, var(--accent) 50%); /* For Webkit browsers */
+    -webkit-background-clip: text; /* Ensures gradient applies to text */
+    background-clip: text; /* Ensures gradient applies to text */
+    -webkit-text-fill-color: transparent; /* Makes the text transparent to show gradient */
+    text-transform:capitalize;
+    letter-spacing: 1.5px;
+    text-decoration: none; /* Removes underline */
+}
+
+        .auth-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .auth-header h1 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-header p {
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            color: #777;
+        }
+
+        .form-group {
+            margin-bottom: clamp(15px, 3vw, 20px);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: clamp(8px, 2.5vw, 12px) 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 5px rgba(0, 122, 51, 0.3);
+            outline: none;
+        }
+
+        .auth-submit {
+            width: 100%;
+            padding: clamp(10px, 2.5vw, 12px);
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 10px;
+            min-height: 44px; /* WCAG touch target */
+        }
+
+        .auth-submit:hover {
+            background-color: #005F26;
+            transform: translateY(-2px);
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: 5px;
+            color: #777;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .social-auth {
+            margin-top: clamp(15px, 4vw, 25px);
+            text-align: center;
+        }
+
+        .social-auth p {
+            position: relative;
+            color: #777;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            margin-bottom: clamp(10px, 3vw, 20px);
+        }
+
+        .social-auth p::before,
+        .social-auth p::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .social-auth p::before {
+            left: 0;
+        }
+
+        .social-auth p::after {
+            right: 0;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: clamp(8px, 2vw, 15px);
+        }
+
+        .social-btn {
+            width: clamp(35px, 10vw, 45px);
+            height: clamp(35px, 10vw, 45px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            min-width: 44px; /* WCAG touch target */
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .google-btn {
+            background-color: #DB4437;
+        }
+
+        .facebook-btn {
+            background-color: #4267B2;
+        }
+
+        .twitter-btn {
+            background-color: #1DA1F2;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: clamp(15px, 3vw, 20px);
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            color: #777;
+        }
+
+        .auth-switch a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: text-decoration 0.3s;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: clamp(15px, 4vw, 25px) clamp(10px, 3vw, 20px);
+                margin: 10px;
+            }
+
+            .auth-header h1 {
+                font-size: clamp(1.3rem, 4vw, 1.6rem);
+            }
+
+            .auth-header p {
+                font-size: clamp(0.75rem, 2vw, 0.9rem);
+            }
+
+            .form-group label {
+                font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+            }
+
+            .form-group input {
+                padding: clamp(6px, 2vw, 10px) 12px;
+                font-size: clamp(0.75rem, 2vw, 0.9rem);
+            }
+
+            .auth-submit {
+                padding: clamp(8px, 2vw, 10px);
+                font-size: clamp(0.8rem, 2vw, 0.95rem);
+            }
+
+            .forgot-password {
+                font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+            }
+
+            .social-auth p {
+                font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+            }
+
+            .social-btn {
+                width: clamp(30px, 8vw, 40px);
+                height: clamp(30px, 8vw, 40px);
+                font-size: clamp(0.8rem, 2.5vw, 1rem);
+            }
+
+            .auth-switch {
+                font-size: clamp(0.75rem, 2vw, 0.9rem);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .auth-container {
+                padding: clamp(10px, 3vw, 20px) clamp(8px, 2.5vw, 15px);
+                width: 95%;
+            }
+
+            .auth-logo {
+                height: clamp(30px, 7vw, 40px);
+            }
+
+            .auth-header h1 {
+                font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+            }
+
+            .social-buttons {
+                gap: clamp(5px, 1.5vw, 10px);
+            }
+
+            .social-btn {
+                width: clamp(28px, 7vw, 35px);
+                height: clamp(28px, 7vw, 35px);
+                font-size: clamp(0.7rem, 2vw, 0.9rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="index.html">
+               <span class="auth-logo">EduAlat</span>
+            </a>
+            <h1>Welcome Back</h1>
+            <p>Login to your EduAlat account</p>
+        </div>
+        
+        <form class="auth-form" id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+            <button type="submit" class="auth-submit">Login</button>
+            
+            <div class="social-auth">
+                <p>Or login with</p>
+                <div class="social-buttons">
+                    <div class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn twitter-btn">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="auth-switch">
+                Don't have an account? <a href="signup.html">Sign up</a>
+            </div>
+        </form>
+    </div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        // In a real app, this would be an API call
+        localStorage.setItem('edualatLoggedIn', 'true');
+        localStorage.setItem('edualatUserEmail', email);
+        localStorage.setItem('edualatUserName', email.split('@')[0]);
+        
+        window.location.href = '/user-dashboard.html'; // Updated to absolute path with hyphen
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAlat - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Same styles as login.html, just change the form */
+        :root {
+            --primary: #007A33;
+            --accent: #FF8C00;
+            --background: #F9FAFB;
+            --text-secondary: #333333;
+            --highlight: #002147;
+            --success: #D4EDDA;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .auth-container {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-logo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 900; /* Increased to a bolder weight */
+    color: linear-gradient(90deg, var(--primary) 50%, var(--accent) 50%); /* Combination of primary and secondary colors */
+    background: -webkit-linear-gradient(90deg, var(--primary) 50%, var(--accent) 50%); /* For Webkit browsers */
+    -webkit-background-clip: text; /* Ensures gradient applies to text */
+    background-clip: text; /* Ensures gradient applies to text */
+    -webkit-text-fill-color: transparent; /* Makes the text transparent to show gradient */
+    text-transform:capitalize;
+    letter-spacing: 1.5px;
+    text-decoration: none; /* Removes underline */
+}
+
+        .auth-header h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .auth-header p {
+            color: #777;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .auth-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .auth-submit:hover {
+            background-color: #005F26;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }
+
+        .auth-switch a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+            
+            .auth-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="index.html">
+                <span class="auth-logo">EduAlat</span>
+            </a>
+            <h1>Create Your Account</h1>
+            <p>Join EduAlat to report issues and track progress</p>
+        </div>
+        
+        <form class="auth-form" id="signupForm">
+            <div class="form-group">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" required>
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" id="signupEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="signupConfirmPassword">Confirm Password</label>
+                <input type="password" id="signupConfirmPassword" required>
+            </div>
+            <button type="submit" class="auth-submit">Create Account</button>
+            
+            <div class="auth-switch">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // In a real app, this would be an API call
+            localStorage.setItem('edualatLoggedIn', 'true');
+            localStorage.setItem('edualatUserEmail', email);
+            localStorage.setItem('edualatUserName', name);
+            
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>
